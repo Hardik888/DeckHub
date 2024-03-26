@@ -2,28 +2,28 @@ import { config } from "dotenv";
 config();
 import express, { Application, Request, Response } from "express";
 import mongoose from "mongoose";
+import cors from "cors";
+import getDecksContoller from "./controllers/getDecksController";
+import createdDeckController from "./controllers/createDeckController";
 import DeckModel from "./models/Deck";
+import deleteDeckController from "./controllers/deleteDeckController";
 const app: Application = express();
+app.use(cors({origin:"*"}));
 app.use(express.json());
 
-app.post('/decks', async (req: Request, res: Response) => {
-    const newDeck = new DeckModel({
-        title: req.body.title,
-        
-   
-    });
-    const createdDeck = await newDeck.save();
-    res.json(createdDeck);
-});
+app.get('/decks',getDecksContoller)
 
+app.post('/decks', createdDeckController)
+
+app.delete('/decks/:deckId',deleteDeckController)
 
 mongoose.connect(process.env.MONGO_URL ?? " ")
-    .then(() => {
+.then(() => {
         console.log("listening to port ");
         app.listen(process.env.PORT ?? " ");
-    }).catch(error => {
+}).catch(error => {
         console.log(error)
-    })
+})
 
 
 
