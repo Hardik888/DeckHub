@@ -1,3 +1,6 @@
+```This App is for people who want to learn express in a simple and clear manner ```
+
+
 1. **Use types for knowing the functionalities of the exact method.**
 2.  **Connect to the Database before listening to requests.**
 3. **Using Middleware to check and process given information before moving to the next Execution.**
